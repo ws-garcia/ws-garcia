@@ -1,5 +1,15 @@
-### Hi there 👋
+## Hello!, I'm Wilfredo Garcia.
 
+I'm an enthusiastic, self-taught civil engineer from DR :dominican_republic: whose hobby is coding office utilities. 
+
+**About me**
+- 💼  Civil Engineer.
+- ♥️ VBA is my passion, my secret love 😉.
+- ⚡ Fun fact: my love for VBA started when I discovered that not everything can be solved with Excel formulas.!
+- 💬 Ask me about any topic [here](https://github.com/ws-garcia/ws-garcia/issues).
+
+| <a href="https://github.com/ws-garcia/github-readme-stats"><img align="center" src="https://github-readme-stats.vercel.app/api?username=ws-garcia&show_icons=true&include_all_commits=true&theme=buefy&hide_border=true" alt="Anurag's github stats" /></a> | <a href="https://github.com/ws-garcia/github-readme-stats"><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ws-garcia&layout=compact&theme=buefy&hide_border=true" /></a> |
+| ------------- | ------------- |
 <!--
 **ws-garcia/ws-garcia** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
