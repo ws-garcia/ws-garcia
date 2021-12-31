@@ -1,4 +1,4 @@
-## Hello!, I'm Wilfredo Garcia.
+## Hello!, I'm Wilfredo García.
 
 I'm an enthusiastic, self-taught from DR :dominican_republic: whose hobby is coding office utilities. 
 
