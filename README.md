@@ -1,6 +1,6 @@
 ## Hello!, I'm Wilfredo García.
 
-I'm an enthusiastic, self-taught from DR :dominican_republic: whose hobby is coding office utilities. 
+I'm an enthusiastic, self-taught from Dominican Republic :dominican_republic: whose hobby is coding office utilities. 
 
 **About me**
 - 💼  Civil Engineer.
