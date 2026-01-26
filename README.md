@@ -11,6 +11,8 @@ I'm an enthusiastic, self-taught from Dominican Republic :dominican_republic: wh
 ![](https://github-readme-stats.vercel.app/api?username=ws-garcia&theme=blue_navy&hide_border=false&include_all_commits=true&count_private=false)<br/>
 ![](https://nirzak-streak-stats.vercel.app/?user=ws-garcia&theme=blue_navy&hide_border=false)<br/>
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=ws-garcia&theme=blue_navy&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
+
+<!--
 **ws-garcia/ws-garcia** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
