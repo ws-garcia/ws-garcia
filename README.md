@@ -8,9 +8,9 @@ I'm an enthusiastic, self-taught from Dominican Republic :dominican_republic: wh
 - ⚡ Fun fact: my love for VBA started when I discovered that not everything can be solved with an Excel formula!
 - 💬 Ask me about any topic [here](https://github.com/ws-garcia/ws-garcia/issues).
 
-| <a href="https://github.com/ws-garcia/github-readme-stats"><img align="center" src="https://github-readme-stats.vercel.app/api?username=ws-garcia&show_icons=true&include_all_commits=true&theme=buefy&hide_border=true" alt="Anurag's github stats" /></a> | <a href="https://github.com/ws-garcia/github-readme-stats"><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ws-garcia&layout=compact&theme=buefy&hide_border=true" /></a> |
-| ------------- | ------------- |
-<!--
+![](https://github-readme-stats.vercel.app/api?username=ws-garcia&theme=blue_navy&hide_border=false&include_all_commits=true&count_private=false)<br/>
+![](https://nirzak-streak-stats.vercel.app/?user=ws-garcia&theme=blue_navy&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=ws-garcia&theme=blue_navy&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
 **ws-garcia/ws-garcia** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
