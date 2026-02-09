@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Frustration to Innovation — Wilfredo García</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-card: #16161f;
+  --bg-card-hover: #1c1c28;
+  --accent: #e8a849;
+  --accent-dim: #c08a30;
+  --accent-glow: rgba(232, 168, 73, 0.15);
+  --accent-rust: #de6e3a;
+  --accent-python: #4b8bbe;
+  --accent-green: #4ade80;
+  --accent-red: #f87171;
+  --text-primary: #e8e6e1;
+  --text-secondary: #9b9a97;
+  --text-dim: #5c5b58;
+  --border: rgba(232, 168, 73, 0.12);
+  --border-subtle: rgba(255,255,255,0.06);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--accent-dim) var(--bg-primary); }
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--bg-primary); }
+
+/* ===== NOISE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transform: translateY(-100%);
+  animation: slideDown 0.8s ease 0.5s forwards;
+}
+@keyframes slideDown { to { transform: translateY(0); } }
+
+nav .logo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+nav .nav-links { display: flex; gap: 2rem; }
+nav .nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+nav .nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+nav .nav-links a:hover::after { width: 100%; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 6vw 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(ellipse, rgba(232,168,73,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  max-width: 900px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1s forwards;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.hero-quote {
+  margin-top: 3rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  max-width: 600px;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--accent);
+  opacity: 0;
+  animation: fadeUp 0.8s ease 1.3s forwards;
+}
+.hero-desc {
+  margin-top: 2.5rem;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 1.5s forwards;
+}
+.hero-scroll {
+  margin-top: 4rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 1.8s forwards;
+}
+.hero-scroll span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  margin-top: 0.75rem;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SECTIONS ===== */
+section { padding: 6rem 6vw; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.15;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--accent-dim) 10%, var(--accent-dim) 90%, transparent);
+}
+
+.case-card {
+  position: relative;
+  margin-bottom: 4rem;
+  padding-left: 90px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.case-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-card .dot {
+  position: absolute;
+  left: 32px;
+  top: 1.5rem;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent);
+  z-index: 2;
+  transition: all 0.3s;
+}
+.case-card:hover .dot {
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.card-inner {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.card-inner:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border);
+  transform: translateX(6px);
+}
+
+.card-header {
+  padding: 2rem 2.5rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.card-number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.2;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.card-header-text { flex: 1; }
+.card-header-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.card-header-text .subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.card-toggle {
+  font-size: 1.5rem;
+  color: var(--text-dim);
+  transition: transform 0.4s, color 0.3s;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+.card-inner.expanded .card-toggle {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card-inner.expanded .card-body {
+  max-height: 3000px;
+}
+.card-body-inner {
+  padding: 0 2.5rem 2.5rem;
+}
+
+.card-body h4 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 2rem 0 0.75rem;
+}
+.card-body h4:first-child { margin-top: 0; }
+.card-body p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.card-body p strong { color: var(--text-primary); font-weight: 600; }
+.card-body p em { color: var(--text-secondary); font-style: italic; }
+
+.card-body a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.card-body a:hover { border-bottom-color: var(--accent); }
+
+/* ===== COMPARISON TABLE ===== */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+}
+.compare-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.compare-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .highlight-row td {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: var(--accent-glow);
+}
+.pass { color: var(--accent-green); font-weight: 600; }
+.fail { color: var(--accent-red); font-weight: 600; }
+.val-best { color: var(--accent); font-weight: 700; }
+
+/* ===== CODE BLOCK ===== */
+.code-block {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  margin: 1rem 0;
+  line-height: 1.6;
+  white-space: pre;
+}
+.code-block .kw { color: var(--accent); }
+.code-block .str { color: var(--accent-green); }
+.code-block .cm { color: var(--text-dim); font-style: italic; }
+.code-block .fn { color: #c4b5fd; }
+
+/* ===== DISMISSAL QUOTE ===== */
+.dismissal {
+  border-left: 3px solid var(--accent-red);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  background: rgba(248, 113, 113, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+.dismissal p {
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem !important;
+  font-size: 0.95rem;
+}
+.dismissal .source {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  font-style: normal;
+}
+
+/* ===== OUTCOME BADGE ===== */
+.outcome {
+  border-left: 3px solid var(--accent-green);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  background: rgba(74, 222, 128, 0.04);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ===== GLOBAL IMPACT SECTION ===== */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.impact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.4s;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s, border-color 0.3s, background 0.3s;
+}
+.impact-card.visible { opacity: 1; transform: translateY(0); }
+.impact-card:hover {
+  border-color: var(--border);
+  background: var(--bg-card-hover);
+}
+.impact-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.impact-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.impact-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.impact-card a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.impact-card a:hover { border-bottom-color: var(--accent); }
+
+/* ===== PATTERN SECTION ===== */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.pattern-item {
+  padding: 2rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--bg-card);
+  transition: all 0.4s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.pattern-item.visible { opacity: 1; transform: translateY(0); }
+.pattern-item:hover {
+  border-color: var(--border);
+  background: var(--bg-card-hover);
+}
+.pattern-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.25;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.pattern-item h4 {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.pattern-item p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ===== SUMMARY TABLE SECTION ===== */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+.summary-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--border);
+}
+.summary-table td {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+.summary-table td:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.summary-table td a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.summary-table td a:hover { border-bottom-color: var(--accent); }
+.verdict { color: var(--accent-red); font-style: italic; }
+.summary-table td:last-child { color: var(--accent-green); }
+
+/* ===== CONCLUSION ===== */
+.conclusion {
+  text-align: center;
+  padding: 8rem 6vw;
+  position: relative;
+}
+.conclusion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+}
+.conclusion-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 750px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+}
+.conclusion-text strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.conclusion-cta {
+  margin-top: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+.conclusion-cta a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-dim);
+  transition: all 0.3s;
+}
+.conclusion-cta a:hover { border-bottom-color: var(--accent); }
+
+.star-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.star-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s;
+  letter-spacing: 0.05em;
+}
+.star-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 2rem 2rem 3rem;
+  border-top: 1px solid var(--border-subtle);
+}
+footer p {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero { padding: 7rem 1.5rem 3rem; }
+  section { padding: 4rem 1.5rem; }
+  nav .nav-links { display: none; }
+  .timeline::before { left: 16px; }
+  .case-card { padding-left: 50px; }
+  .case-card .dot { left: 8px; }
+  .card-header { padding: 1.5rem; }
+  .card-body-inner { padding: 0 1.5rem 1.5rem; }
+  .card-number { font-size: 2.5rem; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .pattern-grid { grid-template-columns: 1fr; }
+  .summary-table { font-size: 0.8rem; display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">ws-garcia</div>
+  <div class="nav-links">
+    <a href="#cases">Cases</a>
+    <a href="#impact">Impact</a>
+    <a href="#pattern">Philosophy</a>
+    <a href="https://github.com/ws-garcia" target="_blank">GitHub ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Developer Track — Wilfredo García</div>
+  <h1>From Frustration<br>to <em>Innovation</em></h1>
+  <blockquote class="hero-quote">"Each barrier is no more than a target to tear down."</blockquote>
+  <p class="hero-desc">How a single practical need — parsing CSV files correctly in VBA — grew into a complete scripting language, a peer-reviewed research paper, and tools being adopted by developers worldwide.</p>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- CASES TIMELINE -->
+<section id="cases">
+  <div class="section-label">The Journey · 4 Cases</div>
+  <div class="section-title">Every problem someone said was<br>already solved or not worth solving.</div>
+
+  <div class="timeline" style="margin-top:3rem;">
+
+    <!-- CASE 1 -->
+    <div class="case-card">
+      <div class="dot"></div>
+      <div class="card-inner" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-number">01</div>
+          <div class="card-header-text">
+            <div class="subtitle">The Origin</div>
+            <h3>VBA CSV Interface</h3>
+          </div>
+          <div class="card-toggle">+</div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <h4>🔍 The Root Cause</h4>
+          <p>I discovered that <strong>Microsoft Excel is not fully compliant with RFC-4180</strong>, and provides no built-in mechanism to dump CSV content directly into a VBA array. Excel's legacy import tools, Power Query, and even Power BI each fail on files that deviate from their narrow assumptions — like files using the apostrophe as a text qualifier instead of double quotes.</p>
+
+          <h4>🌐 Community Solutions</h4>
+          <table class="compare-table">
+            <thead><tr><th>API</th><th>Records</th><th>Fields</th><th>Correct?</th></tr></thead>
+            <tbody>
+              <tr><td>From Text (Legacy)</td><td>5</td><td>4</td><td class="fail">✗</td></tr>
+              <tr><td>Power Query</td><td>5</td><td>6</td><td class="fail">✗</td></tr>
+              <tr class="highlight-row"><td>CSV Interface</td><td>4</td><td>2</td><td class="pass">✓</td></tr>
+            </tbody>
+          </table>
+
+          <div class="dismissal">
+            <p>"I'm sure your tool fills some specific use case but I don't think you've done a very good job of explaining/selling it."</p>
+            <span class="source">— r/vba community member</span>
+          </div>
+
+          <h4>✅ My Solution</h4>
+          <p>I built a <strong>complete, RFC-4180-compliant CSV parser in pure VBA</strong> with configurable text qualifiers, delimiters, escape characters, and direct array import — the capability Excel itself lacks.</p>
+          <div class="code-block">
+<span class="kw">Sub</span> <span class="fn">JoinTwoCSV</span>()
+    <span class="kw">Dim</span> csv <span class="kw">As</span> CSVinterface
+
+    <span class="cm">'@--------------------------------------------------</span>
+    <span class="cm">' Import data from CSV files</span>
+    <span class="kw">Set</span> csv = <span class="kw">New</span> CSVinterface
+    <span class="kw">With</span> csv
+        .parseConfig.delimitersGuessing = <span class="kw">True</span>
+        .parseConfig.path = <span class="fn">Environ</span>(<span class="str">"USERPROFILE"</span>) & <span class="str">"\Desktop\Sales details.csv"</span>
+        .<span class="fn">ImportFromCSV</span> .parseConfig
+    <span class="kw">End With</span>
+
+    <span class="cm">'@--------------------------------------------------</span>
+    <span class="cm">' Write the result in a spreadsheet.</span>
+    csv.<span class="fn">DumpToSheet</span> DataSource:=csv.Items
+<span class="kw">End Sub</span>
+          </div>
+          <p>CSV Interface became <strong>the foundation from which every subsequent project emerged</strong>.</p>
+          <p><a href="https://github.com/ws-garcia/VBA-CSV-interface" target="_blank">🔗 VBA CSV Interface on GitHub →</a></p>
+
+          <h4>🧠 Mindset: Challenge the Platform, Not the User</h4>
+          <p>When told my tool was poorly explained, I didn't argue — I showed a side-by-side comparison where CSV Interface produced the correct output and every Microsoft tool failed. <strong>Let the results do the talking.</strong></p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="case-card">
+      <div class="dot"></div>
+      <div class="card-inner" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-number">02</div>
+          <div class="card-header-text">
+            <div class="subtitle">Research Breakthrough</div>
+            <h3>CSV Dialect Detection</h3>
+          </div>
+          <div class="card-toggle">+</div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <h4>🔍 The Root Cause</h4>
+          <p>CSV Interface needed to <strong>automatically detect the dialect</strong> of unknown files. Existing tools treated this as character-level pattern matching — counting delimiter frequencies. But that's fundamentally the wrong approach when a file like <code>1,5;33,33;15,55</code> makes commas and semicolons genuinely ambiguous.</p>
+
+          <div class="dismissal">
+            <p>"Interesting but then becomes somewhat pointless."</p>
+            <span class="source">— sancarn (stdLambda author), r/vba</span>
+          </div>
+
+          <h4>✅ My Solution: The Table Uniformity Method</h4>
+          <p>Instead of asking "which character appears most consistently?", I asked: <strong>"which candidate delimiter produces the most uniform table?"</strong> This reframed dialect detection from signal processing to structural inference.</p>
+
+          <table class="compare-table">
+            <thead><tr><th>Metric</th><th>CSVsniffer MADSE</th><th>CleverCSV</th><th>csv.Sniffer</th></tr></thead>
+            <tbody>
+              <tr><td>Weighted F1</td><td class="val-best">0.9378</td><td>0.8425</td><td>0.8049</td></tr>
+              <tr><td>Failure Ratio</td><td class="val-best">2.86%</td><td>7.99%</td><td>19.83%</td></tr>
+              <tr><td>Reliability Factor</td><td class="val-best">87.80%</td><td>72.96%</td><td>67.54%</td></tr>
+            </tbody>
+          </table>
+
+          <div class="outcome">
+            <p>📄 Published as <a href="https://journals.sagepub.com/doi/10.3233/DS-240062" target="_blank"><strong>"Detecting CSV File Dialects by Table Uniformity Measurement and Data Type Inference"</strong></a> in SAGE's <em>Data Science</em> journal.</p>
+          </div>
+
+          <p><a href="https://github.com/ws-garcia/CSVsniffer" target="_blank">🔗 CSVsniffer on GitHub →</a></p>
+
+          <h4>🧠 Mindset: The Empiricist Who Reframes the Question</h4>
+          <p>The community dismissed the problem because they were solving the wrong one. I didn't accept their framing. I asked <strong>"what defines a correct parse?"</strong> and the answer — table uniformity — shifted the entire field.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- CASE 3 -->
+    <div class="case-card">
+      <div class="dot"></div>
+      <div class="card-inner" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-number">03</div>
+          <div class="card-header-text">
+            <div class="subtitle">From Evaluator to Language</div>
+            <h3>Expression Evaluation → ASF</h3>
+          </div>
+          <div class="card-toggle">+</div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <h4>🔍 The Root Cause</h4>
+          <p>CSV Interface needed users to define computed fields dynamically. VBA has no native string-based expression evaluation, so I needed a library. <strong>Volpi MathParser</strong> was abandoned. <strong>stdLambda</strong> was well-crafted but carried two architectural limits:</p>
+          <p><strong>⏱️ ~50x performance cliff</strong> on math functions (<code>sin</code>, <code>cos</code>, <code>tan</code>) — not a tuning issue, an architectural one.</p>
+          <p><strong>🔢 Positional variables</strong> (<code>$1</code>, <code>$2</code>) — incompatible with programmatic variable injection from another library.</p>
+
+          <div class="dismissal">
+            <p>"It definitely is unfortunate that accessing and editing the locals table of stdLambda is non-trivial. Definitely something for the library to improve upon."</p>
+            <span class="source">— sancarn, acknowledging the limitation</span>
+          </div>
+
+          <h4>✅ My Solution</h4>
+          <p><strong>Phase 1 — VBA Expressions:</strong> Named variables with order-independent assignment: <code>Run("x = 1; y = 2; z = 3")</code>. "Analyze once, evaluate many" architecture.</p>
+          <p><strong>Phase 2 — ASF:</strong> The evaluator naturally extended into a <strong>full JavaScript-like scripting language</strong> in pure VBA — with parser, compiler, VM, closures, classes with inheritance, module system, and VS Code tooling with 181 snippets.</p>
+          <p><a href="https://github.com/ECP-Solutions/ASF" target="_blank">🔗 ASF on GitHub →</a></p>
+
+          <h4>🧠 Mindset: Follow the Architecture, Not the Scope</h4>
+          <p>This isn't scope creep — it's <strong>scope discovery</strong>. Each limitation pointed to a deeper need. Once you have a proper parser, you're one step from closures; one step from there to first-class functions; one step from there to a complete language. I chose the overwhelming path because it was the correct one.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- CASE 4 -->
+    <div class="case-card">
+      <div class="dot"></div>
+      <div class="card-inner" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="card-number">04</div>
+          <div class="card-header-text">
+            <div class="subtitle">Platform Engineering</div>
+            <h3>Modernizing VBA Development</h3>
+          </div>
+          <div class="card-toggle">+</div>
+        </div>
+        <div class="card-body"><div class="card-body-inner">
+          <h4>🔍 The Root Cause</h4>
+          <p>VBA is a language frozen in time — no closures, no first-class functions, no module system. Millions of enterprise workbooks depend on it, but the language hasn't evolved in decades.</p>
+
+          <h4>🌐 Alternatives &amp; Their Limits</h4>
+          <p><strong>twinBASIC</strong> requires a new toolchain — not feasible in locked-down enterprises. <strong>stdLambda</strong> is valuable but constrained by VBA's grammar. <strong>Python/COM bridges</strong> add deployment complexity.</p>
+
+          <h4>✅ My Solution: ASF as a Language Platform</h4>
+          <p>ASF implements a <strong>new language on top of VBA</strong> rather than trying to extend VBA's syntax. This means zero external dependencies, no migration required, and modern features running on decades-old infrastructure.</p>
+          <p>🔌 Pure VBA · 🔄 Coexists with existing code · ✨ Closures, classes, modules · ⚡ VM-optimized · 🛠️ VS Code tooling</p>
+          <p><a href="https://github.com/ECP-Solutions/ASF" target="_blank">🔗 ASF on GitHub →</a></p>
+
+          <h4>🧠 Mindset: Bridge Between Eras</h4>
+          <p>Where others see VBA as a dead language to escape from, I see an ecosystem to elevate. I don't abandon users stuck on legacy platforms — <strong>I bring the future to them</strong>.</p>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GLOBAL IMPACT -->
+<section id="impact" style="background: var(--bg-secondary);">
+  <div class="section-label">Global Adoption</div>
+  <div class="section-title">The "pointless" idea went global.</div>
+  <p style="color: var(--text-secondary); max-width: 700px; margin-bottom: 1rem;">The Table Uniformity method — born from a dismissed Reddit question — is now adopted across languages and being considered for the world's most-used programming language.</p>
+
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-icon">🦀</div>
+      <h4>Rust — CSV Nose</h4>
+      <p>Joel Natividad (maintainer of <a href="https://github.com/dathere/qsv" target="_blank">qsv</a>) ported the Table Uniformity method to Rust. Achieves <strong style="color:var(--accent)">99.55% accuracy</strong> on W3C-CSVW. Published on <a href="https://crates.io/crates/csv-nose" target="_blank">crates.io</a>, uses CSVsniffer's benchmark datasets.</p>
+      <p style="margin-top:0.75rem;"><a href="https://github.com/jqnatividad/csv-nose" target="_blank">github.com/jqnatividad/csv-nose →</a></p>
+    </div>
+
+    <div class="impact-card">
+      <div class="impact-icon">🐍</div>
+      <h4>Python Standard Library</h4>
+      <p>Andy Terrel (CPython contributor) proposed rewriting <code>csv.Sniffer</code> using Table Uniformity: <em>"my research keeps leading to the table uniformity algorithms."</em> Core dev Serhiy Storchaka endorsed the approach. Stephen Rosen confirmed: <em>"I am in favor of you doing this work."</em></p>
+      <p style="margin-top:0.75rem;"><a href="https://discuss.python.org/t/rewrite-csv-sniffer/92652" target="_blank">discuss.python.org →</a></p>
+    </div>
+
+    <div class="impact-card">
+      <div class="impact-icon">📄</div>
+      <h4>Peer-Reviewed Research</h4>
+      <p>Published in SAGE's <em>Data Science</em> journal with rigorous F1 score analysis across 5 datasets, compared against CleverCSV, DuckDB, and Python's csv.Sniffer. The paper is now cited by independent implementations.</p>
+      <p style="margin-top:0.75rem;"><a href="https://journals.sagepub.com/doi/10.3233/DS-240062" target="_blank">DOI: 10.3233/DS-240062 →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- PATTERN -->
+<section id="pattern">
+  <div class="section-label">Philosophy</div>
+  <div class="section-title">The pattern that repeats.</div>
+
+  <div class="pattern-grid">
+    <div class="pattern-item">
+      <div class="pattern-num">01</div>
+      <h4>🎯 Practice Before Theory</h4>
+      <p>Every project started from a concrete need — never abstract curiosity. CSV Interface → dialect detection → expression evaluation → ASF. Each solution revealed the next problem.</p>
+    </div>
+    <div class="pattern-item">
+      <div class="pattern-num">02</div>
+      <h4>⚖️ Honest Evaluation</h4>
+      <p>I called stdLambda "fabulous" — and meant it. But honest evaluation means diagnosing fundamental limitations, not just surface bugs. The 50x cliff and positional variables aren't complaints; they're diagnoses.</p>
+    </div>
+    <div class="pattern-item">
+      <div class="pattern-num">03</div>
+      <h4>🔀 Reframe the Domain</h4>
+      <p>The decisive move was always recognizing the community was solving the wrong problem. Dialect detection isn't character counting — it's structural inference. VBA modernization isn't syntax extension — it's platform engineering.</p>
+    </div>
+    <div class="pattern-item">
+      <div class="pattern-num">04</div>
+      <h4>🏗️ Follow the Architecture</h4>
+      <p>I pursue solutions to their logical end. An expression evaluator became a scripting language. A delimiter guesser became a peer-reviewed paper. This isn't scope creep — it's scope discovery.</p>
+    </div>
+    <div class="pattern-item">
+      <div class="pattern-num">05</div>
+      <h4>📊 Validate with Rigor</h4>
+      <p>I don't declare solutions superior — I measure them. F1 scores across datasets. Benchmarks against competitors. Peer review. Empirical validation transforms personal projects into trusted contributions.</p>
+    </div>
+    <div class="pattern-item">
+      <div class="pattern-num">06</div>
+      <h4>💪 Resilience Against Dismissal</h4>
+      <p>The "specific use case" became the foundation. The "pointless" guesser reached Python's stdlib discussion. The expression evaluator that wasn't necessary for being a reinvented wheel became a complete language. Every dismissal was fuel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section style="background: var(--bg-secondary);">
+  <div class="section-label">Overview</div>
+  <div class="section-title">Impact Summary</div>
+  <div style="overflow-x: auto;">
+  <table class="summary-table">
+    <thead>
+      <tr><th>Project</th><th>Origin</th><th>Community Verdict</th><th>Outcome</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://github.com/ws-garcia/VBA-CSV-interface" target="_blank">VBA CSV Interface</a></td>
+        <td style="color:var(--text-secondary)">Excel fails on non-standard CSV</td>
+        <td class="verdict">"Specific use case"</td>
+        <td>Foundation for all subsequent projects</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/ws-garcia/CSVsniffer" target="_blank">CSVsniffer</a></td>
+        <td style="color:var(--text-secondary)">CSV Interface needed dialect detection</td>
+        <td class="verdict">"Somewhat pointless"</td>
+        <td>Peer-reviewed paper · 93.78% F1 · Rust port · Python stdlib discussion</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/ECP-Solutions/ASF" target="_blank">VBA Expressions → ASF</a></td>
+        <td style="color:var(--text-secondary)">CSV Interface needed expression evaluation</td>
+        <td class="verdict">stdLambda suggested as sufficient</td>
+        <td>Complete scripting language with VM; outperforms stdLambda</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/ECP-Solutions/ASF" target="_blank">ASF Platform</a></td>
+        <td style="color:var(--text-secondary)">VBA lacks modern features</td>
+        <td class="verdict">twinBASIC / stdLambda suggested</td>
+        <td>Full JS-like language in pure VBA, VS Code tooling, module system</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="conclusion">
+  <p class="conclusion-text">Identify the <strong>real problem</strong>. Build the <strong>real solution</strong>. Prove it with <strong>real data</strong>. Let the results answer every doubt.</p>
+
+  <div class="star-links">
+    <a class="star-btn" href="https://github.com/ws-garcia/VBA-CSV-interface" target="_blank">⭐ CSV Interface</a>
+    <a class="star-btn" href="https://github.com/ws-garcia/CSVsniffer" target="_blank">⭐ CSVsniffer</a>
+    <a class="star-btn" href="https://github.com/ECP-Solutions/ASF" target="_blank">⭐ ASF</a>
+  </div>
+
+  <p class="conclusion-cta" style="margin-top:2.5rem;">Find this journey interesting? <a href="https://github.com/ws-garcia" target="_blank">Explore more on GitHub ↗</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Wilfredo García · Built with determination</p>
+</footer>
+
+<script>
+function toggleCard(el) {
+  el.classList.toggle('expanded');
+}
+
+// Scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.case-card, .impact-card, .pattern-item').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
