@@ -2,7 +2,7 @@ title: W. García
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Personal repository
-baseurl: "/" # the subpath of your site, e.g. /blog
+#baseurl: "/" # the subpath of your site, e.g. /blog
 #theme: jekyll-theme-architect
 remote_theme: ws-garcia/just-the-docs
 # Set a path/url to a logo that will be displayed instead of the title
